@@ -1,0 +1,182 @@
+.achievements {
+  padding: 20px 0;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h2 {
+  color: #2c3e50;
+  margin: 0;
+}
+
+.page-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn.primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn.primary:hover {
+  background-color: #2980b9;
+}
+
+.btn.secondary {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.btn.secondary:hover {
+  background-color: #7f8c8d;
+}
+
+.achievement-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.achievement-form h3 {
+  color: #34495e;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #34495e;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.achievements-list h3 {
+  color: #34495e;
+  margin-bottom: 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  color: #7f8c8d;
+  font-style: italic;
+  padding: 2rem;
+}
+
+.achievements-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.achievement-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.achievement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.category-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.category-development {
+  background-color: #3498db;
+  color: white;
+}
+
+.category-meeting {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.category-research {
+  background-color: #27ae60;
+  color: white;
+}
+
+.category-planning {
+  background-color: #f39c12;
+  color: white;
+}
+
+.category-other {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.timestamp {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.achievement-description {
+  color: #2c3e50;
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+}
+
+.achievement-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  background-color: #ecf0f1;
+  color: #34495e;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
