@@ -4,13 +4,24 @@ import './Dashboard.css';
 function Dashboard() {
   const [stats, setStats] = useState({
     achievements: 0,
-    tasks: { total: 0, completed: 0, inProgress: 0, todo: 0 }
+    tasks: { total: 0, completed: 0, inProgress: 0, todo: 0 },
+    urgentTasks: []
   });
 
   useEffect(() => {
-    // Fetch stats from API
     fetchStats();
   }, []);
+
+  const getUrgentTasks = (tasks) => {
+    const now = new Date();
+    const threeDaysFromNow = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
+
+    return tasks.filter((task) => {
+      if (!task.due_date) return false;
+      const dueDate = new Date(task.due_date);
+      return dueDate <= threeDaysFromNow && task.status !== 'completed';
+    });
+  };
 
   const fetchStats = async () => {
     try {
@@ -39,7 +50,8 @@ function Dashboard() {
 
       setStats({
         achievements: achievements.length,
-        tasks: taskStats
+        tasks: taskStats,
+        urgentTasks: getUrgentTasks(tasks)
       });
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -81,6 +93,27 @@ function Dashboard() {
           <p>Pending tasks</p>
         </div>
       </div>
+
+      {stats.urgentTasks.length > 0 && (
+        <div className="urgent-dashboard-card">
+          <div className="urgent-dashboard-header">
+            <h3>Urgent Tasks</h3>
+            <span>{stats.urgentTasks.length} task{stats.urgentTasks.length > 1 ? 's' : ''} overdue or due soon</span>
+          </div>
+          <div className="urgent-task-list">
+            {stats.urgentTasks.slice(0, 3).map((task) => (
+              <div key={task.id} className="urgent-task-item">
+                <div>
+                  <p className="urgent-task-desc">{task.description}</p>
+                  <p className="urgent-task-meta">
+                    Due: {new Date(task.due_date).toLocaleDateString()} · Status: {task.status.replace('_', ' ')}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="quick-actions">
         <h3>Quick Actions</h3>

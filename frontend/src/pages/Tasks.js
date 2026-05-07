@@ -26,6 +26,17 @@ function Tasks() {
     }
   };
 
+  const getUrgentTasks = () => {
+    const now = new Date();
+    const threeDaysFromNow = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
+    
+    return tasks.filter(task => {
+      if (!task.due_date) return false;
+      const dueDate = new Date(task.due_date);
+      return dueDate <= threeDaysFromNow && task.status !== 'completed';
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -74,6 +85,22 @@ function Tasks() {
       }
     } catch (error) {
       console.error('Error updating task:', error);
+    }
+  };
+
+  const deleteTask = async (taskId) => {
+    if (window.confirm('Are you sure you want to delete this task?')) {
+      try {
+        const response = await fetch(`/api/tasks/${taskId}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          fetchTasks();
+        }
+      } catch (error) {
+        console.error('Error deleting task:', error);
+      }
     }
   };
 
@@ -193,6 +220,60 @@ function Tasks() {
         </div>
       )}
 
+      {getUrgentTasks().length > 0 && (
+        <div className="urgent-tasks">
+          <h3>⚠️ Urgent Tasks (Overdue or Due Soon)</h3>
+          <div className="tasks-grid">
+            {getUrgentTasks().map((task) => (
+              <div key={task.id} className="task-card urgent">
+                <div className="task-header">
+                  <span className={`priority-badge priority-${getPriorityColor(task.priority)}`}>
+                    {task.priority}
+                  </span>
+                  <span className={`status-badge status-${getStatusColor(task.status)}`}>
+                    {task.status.replace('_', ' ')}
+                  </span>
+                </div>
+
+                <p className="task-description">{task.description}</p>
+
+                <div className="task-footer">
+                  {task.due_date && (
+                    <span className={`due-date ${new Date(task.due_date) < new Date() ? 'overdue' : 'due-soon'}`}>
+                      Due: {new Date(task.due_date).toLocaleDateString()}
+                    </span>
+                  )}
+                  <div className="task-actions">
+                    {task.status !== 'completed' && (
+                      <button
+                        className="status-btn"
+                        onClick={() => updateTaskStatus(task.id, 'completed')}
+                      >
+                        Complete
+                      </button>
+                    )}
+                    {task.status === 'todo' && (
+                      <button
+                        className="status-btn"
+                        onClick={() => updateTaskStatus(task.id, 'in_progress')}
+                      >
+                        Start
+                      </button>
+                    )}
+                    <button
+                      className="delete-btn"
+                      onClick={() => deleteTask(task.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="tasks-list">
         <h3>Your Tasks</h3>
         {tasks.length === 0 ? (
@@ -235,6 +316,12 @@ function Tasks() {
                         Start
                       </button>
                     )}
+                    <button
+                      className="delete-btn"
+                      onClick={() => deleteTask(task.id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>

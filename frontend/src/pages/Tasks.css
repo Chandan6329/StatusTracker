@@ -204,7 +204,46 @@
   transition: all 0.2s;
 }
 
-.status-btn:hover {
-  background-color: #3498db;
+.urgent-tasks {
+  background: #fff3cd;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  border-left: 4px solid #f39c12;
+}
+
+.urgent-tasks h3 {
+  color: #d68910;
+  margin-bottom: 1rem;
+}
+
+.task-card.urgent {
+  border-left: 4px solid #e74c3c;
+}
+
+.due-date.overdue {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.due-date.due-soon {
+  color: #f39c12;
+  font-weight: bold;
+}
+
+.delete-btn {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #e74c3c;
+  background-color: transparent;
+  color: #e74c3c;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  background-color: #e74c3c;
   color: white;
 }
